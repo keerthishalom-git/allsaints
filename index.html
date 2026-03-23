@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>All Saints & Ascension Episcopal Church</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #8B1A1A; --red-light: #a82020; --black: #1a1a1a; --dark: #111111;
+    --gray: #6b7280; --light-gray: #f5f5f5; --white: #ffffff; --gold: #c9a84c; --green: #2d5016;
+  }
+  body { font-family: 'Inter', sans-serif; color: var(--black); background: var(--white); }
+  a { text-decoration: none; color: inherit; }
+
+  .announce-bar { background: var(--red); color: white; text-align: center; padding: 10px 20px; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.02em; }
+  .announce-bar a { color: var(--gold); font-weight: 600; margin-left: 8px; }
+
+  header { background: var(--white); border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 8px rgba(0,0,0,0.07); }
+  .header-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .logo-wrap { display: flex; align-items: center; gap: 12px; }
+  .logo-wrap img { width: 48px; height: 48px; object-fit: contain; border-radius: 50%; }
+  .logo-text .name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--red); }
+  .logo-text .sub { font-size: 0.68rem; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  nav { display: flex; align-items: center; gap: 4px; }
+  .nav-item { position: relative; }
+  .nav-item > a { display: block; padding: 10px 14px; font-size: 0.85rem; font-weight: 500; color: var(--black); border-radius: 6px; transition: background 0.15s; }
+  .nav-item > a:hover { background: var(--light-gray); color: var(--red); }
+  .nav-item:hover .dropdown { display: block; }
+  .dropdown { display: none; position: absolute; top: 100%; left: 0; background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 0; min-width: 210px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 200; }
+  .dropdown a { display: block; padding: 8px 18px; font-size: 0.82rem; color: var(--black); transition: background 0.12s; }
+  .dropdown a:hover { background: var(--light-gray); color: var(--red); }
+  .nav-cta { margin-left: 12px; background: var(--red); color: white !important; padding: 9px 18px !important; border-radius: 6px; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; transition: background 0.15s !important; }
+  .nav-cta:hover { background: var(--red-light) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+  .hamburger span { width: 24px; height: 2px; background: var(--black); border-radius: 2px; display: block; }
+
+  .hero { position: relative; height: 90vh; min-height: 580px; background: #1a0a0a; display: flex; align-items: center; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background-image: url('https://allsaintsascension.com/wp-content/uploads/2024/07/bishop-deon-visitation-photo-july-21-2024-1-1754485455-e1722030639409.jpg'); background-size: cover; background-position: center top; opacity: 0.3; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(120deg, rgba(26,10,10,0.85) 0%, rgba(61,16,16,0.6) 60%, rgba(26,42,10,0.4) 100%); }
+  .hero-content { position: relative; max-width: 1200px; margin: 0 auto; padding: 0 40px; z-index: 2; }
+  .hero-eyebrow { display: inline-block; background: var(--gold); color: var(--dark); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 22px; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 4.2rem); color: white; line-height: 1.12; max-width: 700px; margin-bottom: 22px; }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero p { font-size: 1.05rem; color: rgba(255,255,255,0.82); max-width: 540px; line-height: 1.75; margin-bottom: 38px; }
+  .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary { background: var(--red); color: white; padding: 14px 30px; border-radius: 7px; font-size: 0.92rem; font-weight: 600; transition: background 0.15s, transform 0.1s; display: inline-block; }
+  .btn-primary:hover { background: var(--red-light); transform: translateY(-2px); }
+  .btn-outline { border: 2px solid rgba(255,255,255,0.6); color: white; padding: 13px 30px; border-radius: 7px; font-size: 0.92rem; font-weight: 600; transition: all 0.15s; display: inline-block; }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
+  .hero-scroll { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.45); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .hero-scroll::after { content: '↓'; font-size: 1.1rem; animation: bounce 2s infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
+
+  .stats-bar { background: var(--dark); padding: 30px 24px; }
+  .stats-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; gap: 64px; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--gold); font-weight: 700; }
+  .stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3px; }
+
+  .mission-strip { background: var(--red); padding: 40px 24px; text-align: center; }
+  .mission-strip blockquote { max-width: 780px; margin: 0 auto; font-family: 'Playfair Display', serif; font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: white; line-height: 1.6; }
+  .mission-strip cite { display: block; margin-top: 14px; font-size: 0.75rem; color: rgba(255,255,255,0.6); font-style: normal; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'Inter', sans-serif; }
+
+  section { padding: 72px 24px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-header { margin-bottom: 40px; overflow: hidden; }
+  .section-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3vw, 2.3rem); color: var(--black); }
+  .section-header p { color: var(--gray); margin-top: 8px; font-size: 0.95rem; }
+  .see-all { float: right; font-size: 0.8rem; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 2px solid var(--red); padding-bottom: 2px; margin-top: 6px; }
+
+  .worship-times { background: var(--light-gray); }
+  .worship-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .worship-card { background: white; border-radius: 10px; padding: 28px 24px; border-top: 4px solid var(--red); box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+  .worship-card .day { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 8px; }
+  .worship-card .time { font-family: 'Playfair Display', serif; font-size: 1.55rem; color: var(--red); font-weight: 700; }
+  .worship-card .service { font-size: 0.95rem; font-weight: 600; color: var(--black); margin-top: 4px; }
+  .worship-card .note { font-size: 0.82rem; color: var(--gray); margin-top: 10px; line-height: 1.55; }
+  .worship-card .card-link { display: inline-block; margin-top: 16px; font-size: 0.8rem; color: var(--red); font-weight: 600; border-bottom: 1px solid var(--red); }
+
+  .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+  .news-card { border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb; transition: box-shadow 0.2s, transform 0.2s; background: white; }
+  .news-card:hover { box-shadow: 0 10px 36px rgba(0,0,0,0.13); transform: translateY(-4px); }
+  .news-card img { width: 100%; height: 210px; object-fit: cover; display: block; }
+  .news-card-body { padding: 22px 22px 26px; }
+  .news-tag { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--red); margin-bottom: 9px; }
+  .news-card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; line-height: 1.35; margin-bottom: 10px; }
+  .news-card-body p { font-size: 0.84rem; color: var(--gray); line-height: 1.65; margin-bottom: 18px; }
+  .news-foot { display: flex; justify-content: space-between; align-items: center; }
+  .news-date { font-size: 0.74rem; color: var(--gray); }
+  .read-more { font-size: 0.8rem; font-weight: 700; color: var(--red); border-bottom: 1px solid var(--red); }
+
+  .ministries { background: var(--light-gray); }
+  .ministries-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .ministry-card { background: white; border-radius: 10px; padding: 28px 22px; text-align: center; border: 1px solid #e5e7eb; transition: all 0.2s; }
+  .ministry-card:hover { border-color: var(--red); box-shadow: 0 6px 20px rgba(139,26,26,0.13); transform: translateY(-3px); }
+  .ministry-icon { font-size: 2.2rem; margin-bottom: 13px; }
+  .ministry-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--black); margin-bottom: 8px; }
+  .ministry-card p { font-size: 0.8rem; color: var(--gray); line-height: 1.55; }
+  .ministry-card a { display: inline-block; margin-top: 14px; font-size: 0.78rem; font-weight: 700; color: var(--red); }
+
+  .events-list { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
+  .event-row { display: flex; align-items: center; gap: 20px; padding: 18px 26px; border-bottom: 1px solid #e5e7eb; background: white; transition: background 0.15s; cursor: pointer; }
+  .event-row:last-child { border-bottom: none; }
+  .event-row:hover { background: #fef2f2; }
+  .event-date { text-align: center; min-width: 48px; }
+  .event-date .month { font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); font-weight: 700; }
+  .event-date .day { font-family: 'Playfair Display', serif; font-size: 1.7rem; color: var(--black); line-height: 1; }
+  .event-div { width: 2px; height: 38px; background: #e5e7eb; border-radius: 2px; flex-shrink: 0; }
+  .event-info h4 { font-size: 0.95rem; font-weight: 600; }
+  .event-info p { font-size: 0.8rem; color: var(--gray); margin-top: 3px; }
+  .event-time { margin-left: auto; font-size: 0.78rem; color: var(--red); font-weight: 700; white-space: nowrap; background: #fef2f2; padding: 4px 10px; border-radius: 20px; }
+
+  .connect-section { background: var(--dark); }
+  .connect-section .section-header h2 { color: white; }
+  .connect-section .section-header p { color: rgba(255,255,255,0.6); }
+  .connect-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; }
+  .connect-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 10px; padding: 28px 22px; transition: all 0.2s; }
+  .connect-card:hover { background: var(--red); border-color: var(--red); transform: translateY(-3px); }
+  .connect-card .c-icon { font-size: 1.8rem; margin-bottom: 14px; }
+  .connect-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+  .connect-card p { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.6; margin-bottom: 18px; }
+  .connect-card a { font-size: 0.8rem; font-weight: 700; color: var(--gold); border-bottom: 1px solid var(--gold); }
+
+  .gallery-section { background: #0d0d0d; padding: 72px 24px; }
+  .gallery-section h2 { font-family: 'Playfair Display', serif; color: white; font-size: clamp(1.7rem, 3vw, 2.3rem); }
+  .gallery-section .sub { color: rgba(255,255,255,0.55); margin-top: 8px; font-size: 0.92rem; margin-bottom: 36px; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+  .gallery-item { position: relative; overflow: hidden; border-radius: 8px; aspect-ratio: 1; }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s; display: block; }
+  .gallery-item:hover img { transform: scale(1.08); }
+  .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.78)); color: white; font-size: 0.7rem; padding: 28px 10px 9px; opacity: 0; transition: opacity 0.22s; }
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  footer { background: #0a0a0a; color: white; padding: 60px 24px 0; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: white; margin-bottom: 12px; }
+  .footer-brand p { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.75; margin-bottom: 22px; }
+  .social-row { display: flex; gap: 10px; }
+  .social-btn { width: 38px; height: 38px; background: rgba(255,255,255,0.07); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; color: white; transition: background 0.15s; }
+  .social-btn:hover { background: var(--red); }
+  .footer-col h4 { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.35); margin-bottom: 18px; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a { font-size: 0.83rem; color: rgba(255,255,255,0.6); transition: color 0.12s; }
+  .footer-col ul li a:hover { color: white; }
+  .footer-contact-info p { font-size: 0.83rem; color: rgba(255,255,255,0.6); line-height: 1.9; }
+  .footer-contact-info strong { color: rgba(255,255,255,0.9); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .footer-bottom p { font-size: 0.74rem; color: rgba(255,255,255,0.3); }
+  .footer-bottom a { color: rgba(255,255,255,0.45); }
+  .footer-bottom a:hover { color: white; }
+
+  .mobile-menu { display: none; position: fixed; inset: 0; background: white; z-index: 9999; flex-direction: column; padding: 24px; overflow-y: auto; }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 36px; }
+  .mobile-close { font-size: 1.4rem; cursor: pointer; padding: 6px 12px; color: var(--gray); background: var(--light-gray); border-radius: 6px; border: none; }
+  .mobile-nav a { display: block; font-size: 1.05rem; font-weight: 600; padding: 15px 0; border-bottom: 1px solid #e5e7eb; color: var(--black); }
+  .mobile-nav a:hover { color: var(--red); }
+  .mobile-nav .mobile-give { color: var(--red) !important; font-weight: 700; }
+
+  @media (max-width: 960px) { nav { display: none; } .hamburger { display: flex; } }
+  @media (max-width: 860px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .footer-inner { grid-template-columns: 1fr; } .stats-inner { gap: 28px; } section { padding: 52px 18px; } .hero-content { padding: 0 22px; } }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  🌿 Lent 2026 — Spring Forward March 9. Clocks move ahead 1 hour. Sunday service remains at 9:00 AM.
+  <a href="https://allsaintsascension.com/schedule/">View Full Schedule →</a>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="https://allsaintsascension.com/" class="logo-wrap">
+      <img src="https://allsaintsascension.com/wp-content/uploads/2018/07/logo-with-round-edge-red-black-green-border.jpg" alt="All Saints and Ascension Logo" />
+      <div class="logo-text">
+        <div class="name">All Saints & Ascension</div>
+        <div class="sub">Episcopal Church · Northwoods, MO</div>
+      </div>
+    </a>
+    <nav>
+      <div class="nav-item">
+        <a href="#">About Us ▾</a>
+        <div class="dropdown">
+          <a href="https://allsaintsascension.com/im-new/">I'm New to Your Parish</a>
+          <a href="https://allsaintsascension.com/blog/">This is Us!</a>
+          <a href="https://allsaintsascension.com/faq/">FAQ</a>
+          <a href="https://allsaintsascension.com/the-episcopal-church/">Episcopal Church</a>
+          <a href="https://allsaintsascension.com/vestry/">Vestry</a>
+          <a href="https://allsaintsascension.com/womens-herstery-facts/">Women's Herstory Facts</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#">Ministries ▾</a>
+        <div class="dropdown">
+          <a href="https://allsaintsascension.com/food-pantry/">Food Pantry 2025</a>
+          <a href="https://allsaintsascension.com/episcopal-church-women-ecw-activity/">Episcopal Church Women</a>
+          <a href="https://allsaintsascension.com/choir-recruitment/">Music Ministry</a>
+          <a href="https://allsaintsascension.com/mens-club/">Men's Club</a>
+          <a href="https://allsaintsascension.com/worship-leaders-page/">Liturgical Ministry</a>
+          <a href="https://allsaintsascension.com/community-childrens-choir/">Community Children's Choir</a>
+          <a href="https://allsaintsascension.com/social-justice-ministry/">Social Justice Ministry</a>
+          <a href="https://allsaintsascension.com/other-ministries/">Other Ministries</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#">News ▾</a>
+        <div class="dropdown">
+          <a href="https://allsaintsascension.com/newsletters/">News and Info</a>
+          <a href="https://allsaintsascension.com/funeral-notices/">Funeral Notices</a>
+          <a href="https://allsaintsascension.com/annual-meeting-2022/">Annual Meeting</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#">Schedule ▾</a>
+        <div class="dropdown">
+          <a href="https://allsaintsascension.com/schedule/">Event Schedule</a>
+          <a href="https://allsaintsascension.com/worship-leaders-page/">Liturgical Ministers</a>
+          <a href="https://allsaintsascension.com/bible-study/">Bible Study</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#">Resources ▾</a>
+        <div class="dropdown">
+          <a href="https://allsaintsascension.com/bulletins-worship-service/">Worship Bulletins</a>
+          <a href="https://allsaintsascension.com/forms/">Forms, Flyers & Letters</a>
+          <a href="https://allsaintsascension.com/healh-awareness-monthly/">Health Awareness Monthly</a>
+          <a href="https://allsaintsascension.com/gallery/">Photo Gallery</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#">Connect ▾</a>
+        <div class="dropdown">
+          <a href="https://allsaintsascension.com/contact/">Contact Us</a>
+          <a href="https://allsaintsascension.com/online-streaming/">Live Streaming</a>
+          <a href="https://allsaintsascension.com/sunday-sermon-recordings/">Sermon Recordings</a>
+          <a href="https://allsaintsascension.com/giving/">Giving & Stewardship</a>
+          <a href="https://allsaintsascension.com/online-contributions/">Online Contributions</a>
+        </div>
+      </div>
+      <a href="https://allsaintsascension.com/im-new/" class="nav-item nav-cta">Plan Your Visit</a>
+    </nav>
+    <button class="hamburger" onclick="document.getElementById('mob').classList.add('open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mob">
+  <div class="mobile-menu-top">
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--red);">All Saints & Ascension</div>
+    <button class="mobile-close" onclick="document.getElementById('mob').classList.remove('open')">✕ Close</button>
+  </div>
+  <div class="mobile-nav">
+    <a href="https://allsaintsascension.com/">🏠 Home</a>
+    <a href="https://allsaintsascension.com/im-new/">✝ I'm New Here</a>
+    <a href="https://allsaintsascension.com/blog/">About Us</a>
+    <a href="https://allsaintsascension.com/food-pantry/">Ministries</a>
+    <a href="https://allsaintsascension.com/newsletters/">News</a>
+    <a href="https://allsaintsascension.com/schedule/">Schedule</a>
+    <a href="https://allsaintsascension.com/gallery/">Gallery</a>
+    <a href="https://allsaintsascension.com/bulletins-worship-service/">Resources</a>
+    <a href="https://allsaintsascension.com/online-streaming/">▶ Watch Live</a>
+    <a href="https://allsaintsascension.com/contact/">Contact</a>
+    <a href="https://allsaintsascension.com/giving/" class="mobile-give">💛 Give Online</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">✝ Episcopal Church · Northwoods, Missouri</span>
+    <h1>A Welcoming Community of <em>Faith, Light & Love</em></h1>
+    <p>We are All Saints and Ascension — a vibrant Episcopal congregation in Northwoods, MO. Rooted in tradition, open to all. Come as you are.</p>
+    <div class="hero-buttons">
+      <a href="https://allsaintsascension.com/im-new/" class="btn-primary">Plan Your Visit</a>
+      <a href="https://allsaintsascension.com/online-streaming/" class="btn-outline">▶ Watch Live Stream</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num">9:00 AM</div><div class="stat-label">Sunday Holy Eucharist</div></div>
+    <div class="stat"><div class="stat-num">12 PM</div><div class="stat-label">Tuesday Noonday Eucharist</div></div>
+    <div class="stat"><div class="stat-num">8+</div><div class="stat-label">Active Ministries</div></div>
+    <div class="stat"><div class="stat-num">Est. 1955</div><div class="stat-label">Serving Northwoods, MO</div></div>
+  </div>
+</div>
+
+<!-- MISSION STRIP -->
+<div class="mission-strip">
+  <blockquote>
+    "To be the Light of Christ that builds relationships in our congregation, our community, and with our God."
+    <cite>Our Mission — All Saints & Ascension Episcopal Church</cite>
+  </blockquote>
+</div>
+
+<!-- WORSHIP TIMES -->
+<section class="worship-times">
+  <div class="section-inner">
+    <div class="section-header">
+      <a href="https://allsaintsascension.com/schedule/" class="see-all">Full Schedule →</a>
+      <h2>Worship With Us</h2>
+      <p>Join us in person or online. All are welcome at God's table.</p>
+    </div>
+    <div class="worship-grid">
+      <div class="worship-card">
+        <div class="day">Every Sunday</div>
+        <div class="time">9:00 AM</div>
+        <div class="service">Holy Eucharist</div>
+        <div class="note">In-person with music led by our choir. Streamed live on Facebook for those unable to attend.</div>
+        <a href="https://allsaintsascension.com/online-streaming/" class="card-link">▶ Watch Live Stream</a>
+      </div>
+      <div class="worship-card">
+        <div class="day">Every Tuesday</div>
+        <div class="time">12:00 PM</div>
+        <div class="service">Noonday Eucharist</div>
+        <div class="note">A quiet mid-week service. No music. All baptized Christians welcome to receive communion.</div>
+      </div>
+      <div class="worship-card">
+        <div class="day">Ongoing</div>
+        <div class="time">Bible Study</div>
+        <div class="service">Scripture & Community</div>
+        <div class="note">Regular sessions for spiritual growth and deeper engagement with the Word.</div>
+        <a href="https://allsaintsascension.com/bible-study/" class="card-link">Learn More →</a>
+      </div>
+      <div class="worship-card">
+        <div class="day">Sermon Archive</div>
+        <div class="time">On Demand</div>
+        <div class="service">Recorded Sermons</div>
+        <div class="note">Browse our full library of past sermons from our clergy — available anytime, anywhere.</div>
+        <a href="https://allsaintsascension.com/sunday-sermon-recordings/" class="card-link">View Recordings →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LATEST NEWS -->
+<section>
+  <div class="section-inner">
+    <div class="section-header">
+      <a href="https://allsaintsascension.com/newsletters/" class="see-all">All News →</a>
+      <h2>Latest News & Announcements</h2>
+      <p>Stay connected with what's happening at All Saints and Ascension.</p>
+    </div>
+    <div class="news-grid">
+      <a href="https://allsaintsascension.com/" class="news-card">
+        <img src="https://allsaintsascension.com/wp-content/uploads/2026/03/easter-egg-hunt-announcement-2026-rev1.jpg" alt="Easter Egg Hunt 2026" onerror="this.style.background='#f3f4f6';this.removeAttribute('src')"/>
+        <div class="news-card-body">
+          <div class="news-tag">Community Event</div>
+          <h3>Easter Egg Hunt 2026</h3>
+          <p>Join us for our annual Easter Egg Hunt — a joyful community celebration for children and families throughout Northwoods.</p>
+          <div class="news-foot"><span class="news-date">Spring 2026</span><span class="read-more">Read More</span></div>
+        </div>
+      </a>
+      <a href="https://allsaintsascension.com/food-pantry/" class="news-card">
+        <img src="https://allsaintsascension.com/wp-content/uploads/2026/03/food-giveaway-schedule-2026-ver3.jpg" alt="Food Giveaway 2026" onerror="this.style.background='#f3f4f6';this.removeAttribute('src')"/>
+        <div class="news-card-body">
+          <div class="news-tag">Food Pantry</div>
+          <h3>Monthly Food Giveaway Schedule 2026</h3>
+          <p>Our food pantry continues serving the community. See the full 2026 schedule and find out how to get involved or donate.</p>
+          <div class="news-foot"><span class="news-date">March 2026</span><span class="read-more">Read More</span></div>
+        </div>
+      </a>
+      <a href="https://allsaintsascension.com/newsletters/" class="news-card">
+        <img src="https://allsaintsascension.com/wp-content/uploads/2024/07/bishop-deon-visitation-photo-july-21-2024-1-1754485455-e1722030639409.jpg" alt="Bishop Johnson Visit" onerror="this.style.background='#f3f4f6';this.removeAttribute('src')"/>
+        <div class="news-card-body">
+          <div class="news-tag">Diocese</div>
+          <h3>Bishop Johnson's Visitation</h3>
+          <p>Bishop Deon Johnson visited our congregation — a meaningful moment connecting our parish with the Diocese of Missouri.</p>
+          <div class="news-foot"><span class="news-date">July 2024</span><span class="read-more">Read More</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MINISTRIES -->
+<section class="ministries">
+  <div class="section-inner">
+    <div class="section-header">
+      <a href="https://allsaintsascension.com/food-pantry/" class="see-all">All Ministries →</a>
+      <h2>Our Ministries</h2>
+      <p>Serving God and our neighbors through active community outreach and ministry.</p>
+    </div>
+    <div class="ministries-grid">
+      <div class="ministry-card">
+        <div class="ministry-icon">🍞</div>
+        <h3>Food Pantry</h3>
+        <p>Monthly food giveaway serving families across the Northwoods community.</p>
+        <a href="https://allsaintsascension.com/food-pantry/">Learn More →</a>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-icon">🎵</div>
+        <h3>Music Ministry</h3>
+        <p>Our choir leads worship with Hymnal 1982, LEVAS, and Lift Up Your Hearts.</p>
+        <a href="https://allsaintsascension.com/choir-recruitment/">Learn More →</a>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-icon">🙏</div>
+        <h3>Episcopal Church Women</h3>
+        <p>Connecting women in faith, service, and fellowship within our congregation.</p>
+        <a href="https://allsaintsascension.com/episcopal-church-women-ecw-activity/">Learn More →</a>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-icon">👨‍👦</div>
+        <h3>Men's Club</h3>
+        <p>Brotherhood, service, and fellowship for men in our congregation and community.</p>
+        <a href="https://allsaintsascension.com/mens-club/">Learn More →</a>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-icon">🕊️</div>
+        <h3>Liturgical Ministry</h3>
+        <p>Lay leaders who serve as eucharistic ministers, lectors, and worship assistants.</p>
+        <a href="https://allsaintsascension.com/worship-leaders-page/">Learn More →</a>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-icon">🎶</div>
+        <h3>Children's Choir</h3>
+        <p>Community children's choir open to young singers of all backgrounds and faiths.</p>
+        <a href="https://allsaintsascension.com/community-childrens-choir/">Learn More →</a>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-icon">✊</div>
+        <h3>Social Justice</h3>
+        <p>Advocacy and action for justice, equity, and peace in our community and world.</p>
+        <a href="https://allsaintsascension.com/social-justice-ministry/">Learn More →</a>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-icon">📢</div>
+        <h3>Communications</h3>
+        <p>Spreading the Good News and keeping our congregation informed and connected.</p>
+        <a href="https://allsaintsascension.com/communications-committee/">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UPCOMING EVENTS -->
+<section>
+  <div class="section-inner">
+    <div class="section-header">
+      <a href="https://allsaintsascension.com/schedule/" class="see-all">Full Calendar →</a>
+      <h2>Upcoming Events</h2>
+      <p>Join us for worship, community outreach, and celebration throughout the year.</p>
+    </div>
+    <div class="events-list">
+      <div class="event-row">
+        <div class="event-date"><div class="month">Mar</div><div class="day">9</div></div>
+        <div class="event-div"></div>
+        <div class="event-info"><h4>Daylight Saving Time — Spring Forward</h4><p>Clocks move ahead 1 hour. Sunday service still begins at 9:00 AM.</p></div>
+        <div class="event-time">All Day</div>
+      </div>
+      <div class="event-row">
+        <div class="event-date"><div class="month">Mar</div><div class="day">15</div></div>
+        <div class="event-div"></div>
+        <div class="event-info"><h4>Monthly Food Giveaway</h4><p>Community food pantry open to all. Volunteers always welcome.</p></div>
+        <div class="event-time">TBD</div>
+      </div>
+      <div class="event-row">
+        <div class="event-date"><div class="month">Mar</div><div class="day">29</div></div>
+        <div class="event-div"></div>
+        <div class="event-info"><h4>Palm Sunday Holy Eucharist</h4><p>9:00 AM in-person worship with full choir. Live streamed on Facebook.</p></div>
+        <div class="event-time">9:00 AM</div>
+      </div>
+      <div class="event-row">
+        <div class="event-date"><div class="month">Apr</div><div class="day">5</div></div>
+        <div class="event-div"></div>
+        <div class="event-info"><h4>Easter Egg Hunt 2026</h4><p>Family community event for children of all ages. Come celebrate Easter!</p></div>
+        <div class="event-time">TBD</div>
+      </div>
+      <div class="event-row">
+        <div class="event-date"><div class="month">Apr</div><div class="day">5</div></div>
+        <div class="event-div"></div>
+        <div class="event-info"><h4>Easter Sunday — Holy Eucharist</h4><p>Celebrate the Resurrection with our full choir and congregation.</p></div>
+        <div class="event-time">9:00 AM</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section class="connect-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2>Connect With Us</h2>
+      <p>Whether you're visiting for the first time or a longtime member — there's a place for you here.</p>
+    </div>
+    <div class="connect-grid">
+      <div class="connect-card">
+        <div class="c-icon">🚪</div>
+        <h3>I'm New Here</h3>
+        <p>Visiting for the first time? Learn what to expect, how to participate, and how to connect with our community.</p>
+        <a href="https://allsaintsascension.com/im-new/">Plan Your Visit →</a>
+      </div>
+      <div class="connect-card">
+        <div class="c-icon">📺</div>
+        <h3>Watch Live</h3>
+        <p>Can't make it in person? Watch our Sunday 9 AM service live-streamed on Facebook every week.</p>
+        <a href="https://allsaintsascension.com/online-streaming/">Watch Now →</a>
+      </div>
+      <div class="connect-card">
+        <div class="c-icon">🎙️</div>
+        <h3>Sermon Recordings</h3>
+        <p>Browse our archive of past sermons and reflections from our rector and guest clergy.</p>
+        <a href="https://allsaintsascension.com/sunday-sermon-recordings/">Listen Now →</a>
+      </div>
+      <div class="connect-card">
+        <div class="c-icon">💛</div>
+        <h3>Give & Stewardship</h3>
+        <p>Support the mission and ministry of All Saints and Ascension through your faithful giving.</p>
+        <a href="https://allsaintsascension.com/giving/">Give Online →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="gallery-section">
+  <div class="section-inner">
+    <h2>Life at All Saints & Ascension</h2>
+    <p class="sub">A glimpse into our community — in worship, service, and joyful celebration.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://allsaintsascension.com/wp-content/uploads/2024/07/bishop-deon-visitation-photo-july-21-2024-1-1754485455-e1722030639409.jpg" alt="Bishop Johnson's Visitation"/>
+        <div class="gallery-caption">Bishop Johnson's Visitation</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://allsaintsascension.com/wp-content/uploads/2024/06/20240602_134608-1.jpg" alt="Deacon Valerie Patton's Ordination"/>
+        <div class="gallery-caption">Deacon Valerie Patton's Ordination</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://allsaintsascension.com/wp-content/uploads/2023/12/man-of-the-year.jpg" alt="Man of the Year"/>
+        <div class="gallery-caption">Man of the Year Award</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://allsaintsascension.com/wp-content/uploads/2022/04/img_18231.jpg" alt="Confirmation Sunday"/>
+        <div class="gallery-caption">Confirmation Sunday</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://allsaintsascension.com/wp-content/uploads/2023/08/food-giveaway-2023-story-button-19682368-e1704175678923.jpg" alt="Monthly Food Giveaway"/>
+        <div class="gallery-caption">Monthly Food Giveaway</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://allsaintsascension.com/wp-content/uploads/2020/07/little-library-and-pantry-2020-1.jpg" alt="Food Dispensary & Library"/>
+        <div class="gallery-caption">Food Dispensary & Little Library</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="https://allsaintsascension.com/gallery/" style="border:2px solid rgba(255,255,255,0.5);color:white;padding:13px 32px;border-radius:7px;font-size:0.9rem;font-weight:600;display:inline-block;transition:all 0.15s;" onmouseover="this.style.borderColor='white';this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.5)';this.style.background='transparent'">View Full Photo Gallery →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-brand-name">All Saints & Ascension</div>
+      <p>An Episcopal congregation rooted in faith, love, and service — welcoming all to the Light of Christ in Northwoods, Missouri.</p>
+      <div class="social-row">
+        <a href="https://www.facebook.com/ALLSAINTSASCENSION/" class="social-btn" title="Facebook">f</a>
+        <a href="https://allsaintsascension.com/online-streaming/" class="social-btn" title="Watch Live">▶</a>
+        <a href="https://diocesemo.org/" class="social-btn" title="Diocese of Missouri">✝</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="https://allsaintsascension.com/im-new/">I'm New Here</a></li>
+        <li><a href="https://allsaintsascension.com/blog/">About Us</a></li>
+        <li><a href="https://allsaintsascension.com/faq/">FAQ</a></li>
+        <li><a href="https://allsaintsascension.com/vestry/">Vestry</a></li>
+        <li><a href="https://allsaintsascension.com/the-episcopal-church/">Episcopal Church</a></li>
+        <li><a href="https://allsaintsascension.com/gallery/">Photo Gallery</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ministries & Resources</h4>
+      <ul>
+        <li><a href="https://allsaintsascension.com/food-pantry/">Food Pantry</a></li>
+        <li><a href="https://allsaintsascension.com/choir-recruitment/">Music Ministry</a></li>
+        <li><a href="https://allsaintsascension.com/social-justice-ministry/">Social Justice</a></li>
+        <li><a href="https://allsaintsascension.com/bulletins-worship-service/">Worship Bulletins</a></li>
+        <li><a href="https://allsaintsascension.com/sunday-sermon-recordings/">Sermons</a></li>
+        <li><a href="https://allsaintsascension.com/giving/">Give Online</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact & Hours</h4>
+      <div class="footer-contact-info">
+        <p>
+          <strong>4520 Lucas and Hunt Rd</strong><br/>
+          Northwoods, MO 63121<br/><br/>
+          <strong>📞 314-367-2314</strong><br/><br/>
+          <strong>Office Hours</strong><br/>
+          Rector: Tue – Fri<br/>9:00 am – 5:00 pm<br/><br/>
+          Admin: Mon – Wed<br/>9:00 am – 3:00 pm
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 All Saints & Ascension Episcopal Church · Northwoods, MO ·
+      <a href="https://diocesemo.org/">Episcopal Diocese of Missouri</a>
+    </p>
+    <p>
+      <a href="https://allsaintsascension.com/contact/">Contact</a> ·
+      <a href="https://allsaintsascension.com/giving/">Give</a> ·
+      <a href="https://allsaintsascension.com/online-streaming/">Watch Live</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
